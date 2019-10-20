@@ -62,4 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         settingsActive = !settingsActive;
     }
+
+    @Override
+    public void onBackPressed(){
+        getSupportFragmentManager()
+            .beginTransaction()
+            .setCustomAnimations(R.anim.fadein, R.anim.fadeout)
+            .replace(R.id.frag1, new Intro())
+            .commit();
+    }
 }
