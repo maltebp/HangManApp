@@ -8,13 +8,27 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 
-public class Intro extends Fragment {
+public class Intro extends Fragment implements View.OnClickListener {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_intro, container, false);
+
+        view.findViewById(R.id.intro_page).setOnClickListener(this);
+
         return view;
     }
 
+
+    @Override
+    public void onClick(View v) {
+
+        getFragmentManager()
+            .beginTransaction()
+            .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
+            .replace(R.id.frag1, new Game())
+            .commit();
+
+    }
 }
