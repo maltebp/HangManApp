@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class GalgeLogik {
+    private static GalgeLogik instance = new GalgeLogik();
+
     /** AHT afprøvning er muligeOrd synlig på pakkeniveau */
     ArrayList<String> muligeOrd = new ArrayList<String>();
     private String ordet;
@@ -20,7 +22,7 @@ public class GalgeLogik {
     private boolean spilletErVundet;
     private boolean spilletErTabt;
 
-    public GalgeLogik() {
+    private GalgeLogik() {
         muligeOrd.add("bil");
         muligeOrd.add("computer");
         muligeOrd.add("programmering");
@@ -64,6 +66,10 @@ public class GalgeLogik {
 
     public boolean erSpilletSlut() {
         return spilletErTabt || spilletErVundet;
+    }
+
+    public static GalgeLogik getInstance(){
+        return instance;
     }
 
 
