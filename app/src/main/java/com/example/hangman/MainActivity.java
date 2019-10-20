@@ -10,9 +10,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int[] fragStatus = {0, 1};
     private boolean menuActive = false;
-    private Fragment menuFrag = new BFrag();
+    private Fragment menuFrag = new Settings();
     private Fragment fadeFrag = new BackgroundFade_Frag();
 
     @Override

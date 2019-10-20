@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/settings_frag"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    tools:context=".Intro"
+    android:background="#FFFFFF">
+
+    <TableRow
+        android:layout_marginBottom="10dp">>
+        <TextView
+            android:text="Sounds"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_width="75dp"
+            />
+
+        <Switch
+            android:id="@+id/settings_sounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            />
+    </TableRow>
+
+<!--
+
+    <TableRow
+        android:layout_marginBottom="1dp">
+        <TextView
+            android:text="Music"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_width="75dp"
+            />
+
+        <Switch
+            android:id="@+id/settings_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"/>
+    </TableRow>
+-->
+
+</TableLayout>

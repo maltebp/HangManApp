@@ -62,8 +62,10 @@ public class Game extends Fragment implements View.OnClickListener {
 
         if(logic.erSidsteBogstavKorrekt()){
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_correct));
+            SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct);
         }else{
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_wrong));
+            SoundManager.getInstance().playSound(getContext(), R.raw.snd_wrong);
         }
 
         updateWord();
@@ -88,6 +90,13 @@ public class Game extends Fragment implements View.OnClickListener {
         }
         ((ImageView)getView().findViewById(R.id.galge)).setImageResource(imageSrc);
 
+        if(logic.erSpilletSlut()){
+            getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
+                .replace(R.id.frag1, new Finished())
+                .commit();
+        }
     }
 
     private Button createLetterButton(char letter){
