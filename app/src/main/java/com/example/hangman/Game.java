@@ -15,7 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-
+/* The actual game screen */
 public class Game extends Fragment implements View.OnClickListener {
 
     @Override
@@ -24,18 +24,18 @@ public class Game extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.galge).setOnClickListener(this);
 
+        // Create the "keyboard"
         TableLayout table = view.findViewById(R.id.buttons);
-
         TableRow row = null;
         for(int i=0; i<26; i++){
             if(i % 6 == 0){
                 row = new TableRow(getContext());
                 table.addView(row);
             }
-
             row.addView(createLetterButton( (char) (97+i) ));
         }
 
+        // ADds danish letters to keyboard
         row.addView(createLetterButton( 'æ' ));
         row.addView(createLetterButton( 'ø' ));
         row.addView(createLetterButton( 'å' ));
@@ -53,13 +53,16 @@ public class Game extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        // Disable the clicked button
         Button btn = (Button) view;
         btn.setEnabled(false);
 
         GalgeLogik logic = GalgeLogik.getInstance();
 
+        // Make the guess
         logic.gætBogstav(btn.getText().toString());
 
+        // Update button according to result of guess
         if(logic.erSidsteBogstavKorrekt()){
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_correct));
             SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct);
@@ -70,8 +73,8 @@ public class Game extends Fragment implements View.OnClickListener {
 
         updateWord();
 
+        // Update the hanged man picture
         int imageSrc = 0;
-
         switch(logic.getAntalForkerteBogstaver()){
             case 0:
                 imageSrc = R.drawable.galge; break;
@@ -91,6 +94,7 @@ public class Game extends Fragment implements View.OnClickListener {
         ((ImageView)getView().findViewById(R.id.galge)).setImageResource(imageSrc);
 
         if(logic.erSpilletSlut()){
+            // Go to Finished screen
             getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
@@ -99,24 +103,25 @@ public class Game extends Fragment implements View.OnClickListener {
         }
     }
 
+    /* Generic method to create letter buttons (A-Å) */
     private Button createLetterButton(char letter){
         Button btn = new Button(getContext());
 
+        /* Since the button is a vector graphic, setting the background will make it look squared.
+            Instead we change the tint. */
         btn.setLayoutParams(new TableRow.LayoutParams( 160, TableRow.LayoutParams.WRAP_CONTENT));
 
         String str = "" + letter;
         btn.setText( str );
 
         btn.setOnClickListener(this);
-
         return btn;
     }
 
 
+    /* Updates the displayed word to match the current word in the game logic*/
     private void updateWord(){
         TextView txt = getView().findViewById(R.id.word);
         txt.setText(GalgeLogik.getInstance().getSynligtOrd());
     }
-
-
 }

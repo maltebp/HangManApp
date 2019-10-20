@@ -24,6 +24,8 @@ public class Settings extends Fragment implements Switch.OnCheckedChangeListener
 
     @Override
     public void onCheckedChanged(CompoundButton btn, boolean isChecked) {
+
+        // Turn sound on/off
         if(btn == getView().findViewById(R.id.settings_sounds)){
             SoundManager.getInstance().setSoundsEnabled(isChecked);
         }

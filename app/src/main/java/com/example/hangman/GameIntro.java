@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import static java.lang.Thread.sleep;
 
 
+/* Starts the game, displaying the number of letters in the word to be guessed */
 public class GameIntro extends Fragment implements View.OnClickListener {
 
     private boolean hasContinued = false;
@@ -19,13 +20,15 @@ public class GameIntro extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.fragment_game_intro, container, false);
 
+        // The Game state is reset every time we pass the game intro
         GalgeLogik logic = GalgeLogik.getInstance();
         logic.nulstil();
 
         ((TextView) view.findViewById(R.id.gameintro_word)).setText(logic.getSynligtOrd());
-
         view.findViewById(R.id.gameintro_page).setOnClickListener(this);
 
+        /* Thread which will continue to the game screen, if the user doesn't tap
+            with the sleep duration */
         hasContinued = false;
         new Thread(new Runnable() {
             @Override
@@ -46,6 +49,7 @@ public class GameIntro extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(!hasContinued){
+            // Start the game
             getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.fadein,R.anim.fadeout)

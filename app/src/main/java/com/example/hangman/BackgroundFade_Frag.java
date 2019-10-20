@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BackgroundFade_Frag extends Fragment {
-
+/* A fade effect for the settings fragment */
+public class BackgroundFade_Frag extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

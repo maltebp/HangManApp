@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 
+/* Displays the result of the game (win / loss) */
 public class Finished extends Fragment implements View.OnClickListener {
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -19,6 +19,7 @@ public class Finished extends Fragment implements View.OnClickListener {
 
         TextView resultText = view.findViewById(R.id.result_text);
 
+        // Update the winning/losing text with text and color
         if(GalgeLogik.getInstance().erSpilletVundet()){
             String str = "You won!";
             resultText.setText( str );
@@ -29,9 +30,8 @@ public class Finished extends Fragment implements View.OnClickListener {
             resultText.setTextColor(Color.rgb(255,80,80));
         }
 
-
+        // Update the 'correct word'-text with the correct word
         TextView correctWord = view.findViewById(R.id.correctword);
-
         correctWord.setText( GalgeLogik.getInstance().getOrdet() );
 
         view.setOnClickListener(this);
@@ -42,6 +42,8 @@ public class Finished extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        // Restart the game
         getFragmentManager()
             .beginTransaction()
             .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
