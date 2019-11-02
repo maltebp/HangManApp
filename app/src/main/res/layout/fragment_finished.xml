@@ -24,8 +24,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.10" />
 
+    <TextView
+        android:id="@+id/text_mistakes"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="... with X mistakes"
+        android:textSize="30sp"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintTop_toBottomOf="@id/result_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/correctword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="CORRECTWORD"
+        android:textColor="@color/colorSecondary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correctword_text" />
 
     <TextView
         android:id="@+id/correctword_text"
@@ -40,24 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result_text"
-        app:layout_constraintVertical_bias="0.15" />
-
-    <TextView
-        android:id="@+id/correctword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="CORRECTWORD"
-        android:textColor="@color/colorSecondary"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correctword_text" />
-
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/taptoplayagain"
@@ -71,8 +82,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/correctword"
-        app:layout_constraintVertical_bias="0.30" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.80" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

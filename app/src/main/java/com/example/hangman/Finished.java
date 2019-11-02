@@ -13,26 +13,39 @@ import androidx.fragment.app.Fragment;
 /* Displays the result of the game (win / loss) */
 public class Finished extends Fragment implements View.OnClickListener {
 
+    private String correctWord;
+    private int mistakes;
+    private boolean won;
+
+    public Finished(boolean won, String correctWord, int mistakes){
+        this.correctWord = correctWord;
+        this.mistakes = mistakes;
+        this.won = won;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.fragment_finished, container, false);
 
-        TextView resultText = view.findViewById(R.id.result_text);
+        TextView text_result = view.findViewById(R.id.result_text);
+        TextView text_mistakes = view.findViewById(R.id.text_mistakes);
 
         // Update the winning/losing text with text and color
-        if(GalgeLogik.getInstance().erSpilletVundet()){
+        if(won){
             String str = "You won!";
-            resultText.setText( str );
-            resultText.setTextColor(Color.rgb(80,255,80));
+            text_result.setText( str );
+            text_result.setTextColor(Color.rgb(80,255,80));
+            text_mistakes.setText( "... with "+mistakes+" mistakes");
+
         }else{
             String str = "You lost!";
-            resultText.setText( str );
-            resultText.setTextColor(Color.rgb(255,80,80));
+            text_result.setText( str );
+            text_result.setTextColor(Color.rgb(255,80,80));
+            text_mistakes.setVisibility(View.INVISIBLE);
         }
 
         // Update the 'correct word'-text with the correct word
-        TextView correctWord = view.findViewById(R.id.correctword);
-        correctWord.setText( GalgeLogik.getInstance().getOrdet() );
+        ((TextView) view.findViewById(R.id.correctword)).setText(correctWord);
 
         view.setOnClickListener(this);
 

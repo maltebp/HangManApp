@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private boolean settingsActive = false;
@@ -35,16 +34,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(settingsActive){
             // Close Settings window
+
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.slide_up, R.anim.slide_up)
-                    .remove(menuFrag)
-                    .commit();
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_up, R.anim.slide_up)
+                .remove(menuFrag)
+                .commit();
+
+
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.fadeout, R.anim.fadeout)
-                    .remove(fadeFrag)
-                    .commit();
+                .beginTransaction()
+                .setCustomAnimations(R.anim.fadeout, R.anim.fadeout)
+                .remove(fadeFrag)
+                .commit();
 
         }else{
             // Open Settings window
