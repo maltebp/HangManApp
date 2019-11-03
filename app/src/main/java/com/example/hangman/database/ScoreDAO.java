@@ -3,6 +3,9 @@ package com.example.hangman.database;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.recyclerview.widget.SortedList;
+
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +27,13 @@ public class ScoreDAO implements IScoreDAO {
     public void addScore(Score score){
         SharedPreferences highscores = context.getSharedPreferences(filename, MODE_PRIVATE);
 
-        highscores.edit()
+        int currentScore = highscores.getInt(score.getName(), -1);
+
+        if(score.getScore() > currentScore){
+            highscores.edit()
                 .putInt(score.getName(), score.getScore())
                 .commit();
+        }
         /* Using commit as its plausible that I'll
             need to fetch the newly updated scores immediatley */
     }
@@ -43,6 +50,12 @@ public class ScoreDAO implements IScoreDAO {
             scores.add( new Score(entry.getKey(), Integer.parseInt(entry.getValue().toString())  ) );
         }
 
+        // Sort in ascending order using comparable interface (implemented by Scores)
+        Collections.sort(scores);
+
+        // Reverse the order to descending (highest score first)
+        Collections.reverse(scores);
+
         return scores;
     }
 
@@ -54,5 +67,4 @@ public class ScoreDAO implements IScoreDAO {
                 .clear()
                 .commit();
     }
-
 }
