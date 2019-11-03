@@ -50,6 +50,15 @@ public class Scoreboard extends Fragment {
 
         list_highscores.setAdapter( new ScoreAdapter(getContext(), scores));
 
+        SimpleTask task = new SimpleTask(() -> {
+            try{
+                GameState.getState().hentOrdFraDr();
+            }catch(Exception e){
+                System.out.println("Der skete en fejl, da vi hentede ord fra DR: ");
+                e.printStackTrace();
+            }
+        });
+
     }
 
 

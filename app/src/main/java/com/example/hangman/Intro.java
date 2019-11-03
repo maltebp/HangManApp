@@ -28,16 +28,6 @@ public class Intro extends Fragment implements View.OnClickListener {
         });
 
 
-        SimpleTask task = new SimpleTask(() -> {
-            try{
-                GameState.getState().hentOrdFraDr();
-            }catch(Exception e){
-                System.out.println("Der skete en fejl, da vi hentede ord fra DR: ");
-                e.printStackTrace();
-            }
-        });
-
-
 
         // Starting music
         //TODO: READD MUSIC

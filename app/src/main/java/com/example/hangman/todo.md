@@ -13,7 +13,7 @@ https://docs.google.com/document/d/1d0u0hvXTExwkC6N2B93xA4gS5wVxA3DIVd8bYe2efyk/
     Settings
     M   [ ] Save / load settings preferences
     L   [ ] Custom color setting
-    H   [ ] Close settings tap if clicking outside
+    H   [x] Close settings tap if clicking outside
     L   [ ] Sound level setting
 
     Highscore
@@ -26,7 +26,7 @@ https://docs.google.com/document/d/1d0u0hvXTExwkC6N2B93xA4gS5wVxA3DIVd8bYe2efyk/
 
 
 
-    H [ ] Load words from internet
+    H [x] Load words from internet
     H [ ] Change app name
     H [ ] Fix keyboard on smaller screens
     L [ ] Add name check when enter name
