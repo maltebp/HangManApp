@@ -173,7 +173,6 @@ public class GalgeLogik {
      * @param sværhedsgrader en streng med de tilladte sværhedsgrader - f.eks "3" for at medtage kun svære ord, eller "12" for alle nemme og halvsvære ord
      * @throws Exception
      */
-
     public void hentOrdFraRegneark(String sværhedsgrader) throws Exception {
         String id = "1RnwU9KATJB94Rhr7nurvjxfg09wAHMZPYB3uySBPO6M";
 

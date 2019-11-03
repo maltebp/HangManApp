@@ -27,6 +27,18 @@ public class Intro extends Fragment implements View.OnClickListener {
                 .commit();
         });
 
+
+        SimpleTask task = new SimpleTask(() -> {
+            try{
+                GameState.getState().hentOrdFraDr();
+            }catch(Exception e){
+                System.out.println("Der skete en fejl, da vi hentede ord fra DR: ");
+                e.printStackTrace();
+            }
+        });
+
+
+
         // Starting music
         //TODO: READD MUSIC
         //SoundManager.getInstance().playMusic(getContext(), R.raw.soundtrack, 0.5f);
