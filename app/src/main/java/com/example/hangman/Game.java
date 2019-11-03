@@ -97,8 +97,9 @@ public class Game extends Fragment implements View.OnClickListener {
             // Go to Finished screen
             getFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout )
                 .replace(R.id.frag1, new Finished(logic.erSpilletVundet(), logic.getOrdet(), logic.getAntalForkerteBogstaver()))
+                .addToBackStack(null)
                 .commit();
         }
     }

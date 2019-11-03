@@ -18,66 +18,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Settings main page to intro fragment
-        /*if( savedInstanceState == null){
+        if( savedInstanceState == null){
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.frag1, new Intro())
                     .commit();
         }
 
-        findViewById(R.id.btn_settings).setOnClickListener(this);*/
-
-        if( savedInstanceState == null ){
-            getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.frag1, new Scoreboard())
-                .commit();
-        }
+        findViewById(R.id.btn_settings).setOnClickListener(this);
     }
 
 
     @Override
-    public void onClick(View view){
-
-        if(settingsActive){
-            // Close Settings window
-
-            getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_up, R.anim.slide_up)
-                .remove(menuFrag)
-                .commit();
-
-
-            getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.fadeout, R.anim.fadeout)
-                .remove(fadeFrag)
-                .commit();
-
+    public void onClick(View view) {
+        if (settingsActive){
+            onBackPressed();
         }else{
+            settingsActive = true;
             // Open Settings window
             getSupportFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.fadein, R.anim.fadein)
+                    .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                     .add(R.id.frag2, fadeFrag)
+                    .addToBackStack(null)
                     .commit();
+
             getSupportFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.slide_down, R.anim.slide_down)
+                    .setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up)
                     .add(R.id.frag2, menuFrag)
+                    .addToBackStack(null)
                     .commit();
         }
-
-        settingsActive = !settingsActive;
     }
 
+
     @Override
-    public void onBackPressed(){
-        getSupportFragmentManager()
-            .beginTransaction()
-            .setCustomAnimations(R.anim.fadein, R.anim.fadeout)
-            .replace(R.id.frag1, new Intro())
-            .commit();
+    public void onBackPressed() {
+
+        if(settingsActive){
+            settingsActive = false;
+            getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
+        }else{
+            while(getSupportFragmentManager().getBackStackEntryCount()>0){
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+        }
     }
 }

@@ -44,6 +44,7 @@ public class GameIntro extends Fragment implements View.OnClickListener {
             }
         }).start();
 
+
         return view;
     }
 
@@ -52,9 +53,11 @@ public class GameIntro extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(!hasContinued){
             // Start the game
+
+
             getFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
+                    .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                     .replace(R.id.frag1, new Game())
                     .addToBackStack(null)
                     .commit();
