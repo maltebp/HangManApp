@@ -16,6 +16,9 @@ public class Intro extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.intro_page).setOnClickListener(this);
 
+        // Starting music
+        SoundManager.getInstance().playMusic(getContext(), R.raw.soundtrack, 0.5f);
+
         return view;
     }
 

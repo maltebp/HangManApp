@@ -27,6 +27,8 @@ public class GameIntro extends Fragment implements View.OnClickListener {
         ((TextView) view.findViewById(R.id.gameintro_word)).setText(logic.getSynligtOrd());
         view.findViewById(R.id.gameintro_page).setOnClickListener(this);
 
+        SoundManager.getInstance().clearMusic();
+
         /* Thread which will continue to the game screen, if the user doesn't tap
             with the sleep duration */
         hasContinued = false;

@@ -65,7 +65,7 @@ public class Game extends Fragment implements View.OnClickListener {
         // Update button according to result of guess
         if(logic.erSidsteBogstavKorrekt()){
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_correct));
-            SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct);
+            SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct,0.9f);
         }else{
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_wrong));
             SoundManager.getInstance().playSound(getContext(), R.raw.snd_wrong);
