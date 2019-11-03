@@ -35,11 +35,11 @@ public class Intro extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        // Start the game (GameIntro)
+        // Get player name
         getFragmentManager()
             .beginTransaction()
             .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-            .replace(R.id.frag1, new GameIntro())
+            .replace(R.id.frag1, new EnterName())
             .addToBackStack(null)
             .commit();
 

@@ -60,7 +60,7 @@ public class Finished extends Fragment implements View.OnClickListener {
         getFragmentManager()
             .beginTransaction()
             .setCustomAnimations(R.anim.fadein,R.anim.fadeout)
-            .replace(R.id.frag1, new GameIntro())
+            .replace(R.id.frag1, new GameIntro(new GameState()))
             .addToBackStack(null)
             .commit();
     }
