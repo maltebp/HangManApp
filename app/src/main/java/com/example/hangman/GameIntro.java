@@ -55,8 +55,6 @@ public class GameIntro extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(!hasContinued){
             // Start the game
-
-
             getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)

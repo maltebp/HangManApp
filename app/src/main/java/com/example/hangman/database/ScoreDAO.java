@@ -59,12 +59,21 @@ public class ScoreDAO implements IScoreDAO {
         return scores;
     }
 
-
     @Override
     public void clearScores() {
         SharedPreferences highscores = context.getSharedPreferences(filename, MODE_PRIVATE);
         highscores.edit()
                 .clear()
                 .commit();
+    }
+
+    @Override
+    public int getRank(String name){
+        List<Score> scores = getScores();
+        for(int i=0; i<scores.size(); i++){
+            if( scores.get(i).getName().equals(name))
+                return i+1;
+        }
+        return 0;
     }
 }

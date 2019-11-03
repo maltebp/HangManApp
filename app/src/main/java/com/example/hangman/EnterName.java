@@ -5,13 +5,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-
-import static java.lang.Thread.sleep;
 
 
 /* Starts the game, displaying the number of letters in the word to be guessed */

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.hangman.database.ScoreDAO;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private boolean settingsActive = false;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .addToBackStack(null)
                     .commit();
         }
+
     }
 
 

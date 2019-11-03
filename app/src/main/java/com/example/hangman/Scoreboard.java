@@ -1,17 +1,14 @@
 package com.example.hangman;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,9 +17,7 @@ import com.example.hangman.database.IScoreDAO;
 import com.example.hangman.database.Score;
 import com.example.hangman.database.ScoreDAO;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class Scoreboard extends Fragment {
 
@@ -41,14 +36,6 @@ public class Scoreboard extends Fragment {
 
         IScoreDAO scoreDb = new ScoreDAO(getContext());
 
-        // FOR TESTING PURPOSES
-        scoreDb.clearScores();
-        Random rand = new Random();
-        for(int i=0; i<25; i++){
-            scoreDb.addScore(new Score("User"+i, rand.nextInt(10000)) );
-        }
-        // ----
-
         List<Score> scores = scoreDb.getScores();
 
         ListView list_highscores = view.findViewById(R.id.list_highscores);
@@ -61,7 +48,7 @@ public class Scoreboard extends Fragment {
             list_highscores.setVisibility(View.VISIBLE);
         }
 
-        list_highscores.setAdapter( new ScoreAdapter(getContext(), scoreDb.getScores()));
+        list_highscores.setAdapter( new ScoreAdapter(getContext(), scores));
 
     }
 
@@ -97,7 +84,6 @@ public class Scoreboard extends Fragment {
 
             TextView text_name = row.findViewById(R.id.text_name);
             text_name.setText(scores.get(position).getName());
-
 
             return row;
         }

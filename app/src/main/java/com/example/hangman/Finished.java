@@ -9,43 +9,41 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.hangman.database.IScoreDAO;
+import com.example.hangman.database.Score;
+import com.example.hangman.database.ScoreDAO;
+
 
 /* Displays the result of the game (win / loss) */
 public class Finished extends Fragment implements View.OnClickListener {
 
-    private String correctWord;
-    private int mistakes;
-    private boolean won;
-
-    public Finished(boolean won, String correctWord, int mistakes){
-        this.correctWord = correctWord;
-        this.mistakes = mistakes;
-        this.won = won;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        final View view = inflater.inflate(R.layout.fragment_finished, container, false);
+        View view;
+        GameState gameState = GameState.getState();
 
-        TextView text_result = view.findViewById(R.id.result_text);
-        TextView text_mistakes = view.findViewById(R.id.text_mistakes);
+        if( gameState.erSpilletVundet() ){
+            view = inflater.inflate(R.layout.fragment_won, container, false);
 
-        // Update the winning/losing text with text and color
-        if(won){
-            String str = "You won!";
-            text_result.setText( str );
-            text_result.setTextColor(Color.rgb(80,255,80));
-            text_mistakes.setText( "... with "+mistakes+" mistakes");
+            // Updating score
+            int mistakes = gameState.getAntalForkerteBogstaver();
+            IScoreDAO scoreDAO = new ScoreDAO(getContext());
+            scoreDAO.addScore(new Score(gameState.getPlayerName(), 7-mistakes));
 
-        }else{
-            String str = "You lost!";
-            text_result.setText( str );
-            text_result.setTextColor(Color.rgb(255,80,80));
-            text_mistakes.setVisibility(View.INVISIBLE);
+            // Setting rank
+            TextView text_rank = view.findViewById(R.id.won_text_rank);
+            text_rank.setText( "#"+scoreDAO.getRank(gameState.getPlayerName()));
+
+            // Settings mistakes
+            TextView text_mistakes = view.findViewById(R.id.text_mistakes);
+            text_mistakes.setText("... with "+gameState.getAntalForkerteBogstaver()+" mistakes");
+
+        }else {
+            view = inflater.inflate(R.layout.fragment_lost, container, false);
+            // Update the 'correct word'-text with the correct word
+            ((TextView) view.findViewById(R.id.correctword)).setText(gameState.getOrdet());
         }
-
-        // Update the 'correct word'-text with the correct word
-        ((TextView) view.findViewById(R.id.correctword)).setText(correctWord);
 
         view.setOnClickListener(this);
 
