@@ -14,6 +14,11 @@ public class BackgroundFade_Frag extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_background_fade_, container, false);
+
+        view.setOnClickListener((View v) -> {
+            getActivity().onBackPressed();
+        });
+
         return view;
     }
 }
