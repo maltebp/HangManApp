@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,17 +24,19 @@ public class EnterName extends Fragment {
 
         EditText input_name = view.findViewById(R.id.input_name);
 
+        input_name.requestFocus();
+
         input_name.setOnKeyListener((View v, int keyCode, KeyEvent event) ->{
 
             if(event.getAction() == KeyEvent.ACTION_DOWN){
                 if(keyCode == KeyEvent.KEYCODE_ENTER){
-                    GameState gameState = new GameState();
-                    gameState.setPlayerName( ((EditText) v).getText().toString() );
+
+                    GameState.getState().setPlayerName( ((EditText) v).getText().toString() );
 
                     getFragmentManager()
                             .beginTransaction()
                             .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                            .replace(R.id.frag1, new GameIntro(gameState))
+                            .replace(R.id.frag1, new GameIntro())
                             .addToBackStack(null)
                             .commit();
                 }

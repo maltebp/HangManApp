@@ -15,21 +15,16 @@ import static java.lang.Thread.sleep;
 public class GameIntro extends Fragment implements View.OnClickListener {
 
     private boolean hasContinued = false;
-    private GameState gameState;
-
-    public GameIntro(GameState state){
-        this.gameState = state;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.fragment_game_intro, container, false);
 
         // The Game gameState is reset every time we pass the game intro
-        GalgeLogik logic = GalgeLogik.getInstance();
-        logic.nulstil();
+        GameState gameState = GameState.getState();
+        gameState.nulstil();
 
-        ((TextView) view.findViewById(R.id.gameintro_word)).setText(logic.getSynligtOrd());
+        ((TextView) view.findViewById(R.id.gameintro_word)).setText(gameState.getSynligtOrd());
         view.findViewById(R.id.gameintro_page).setOnClickListener(this);
 
         ((TextView) view.findViewById(R.id.gameintro_text_name)).setText(gameState.getPlayerName());

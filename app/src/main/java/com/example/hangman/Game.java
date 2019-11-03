@@ -57,13 +57,13 @@ public class Game extends Fragment implements View.OnClickListener {
         Button btn = (Button) view;
         btn.setEnabled(false);
 
-        GalgeLogik logic = GalgeLogik.getInstance();
+        GameState gameState = GameState.getState();
 
         // Make the guess
-        logic.gætBogstav(btn.getText().toString());
+        gameState.gætBogstav(btn.getText().toString());
 
         // Update button according to result of guess
-        if(logic.erSidsteBogstavKorrekt()){
+        if(gameState.erSidsteBogstavKorrekt()){
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_correct));
             SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct,0.9f);
         }else{
@@ -75,7 +75,7 @@ public class Game extends Fragment implements View.OnClickListener {
 
         // Update the hanged man picture
         int imageSrc = 0;
-        switch(logic.getAntalForkerteBogstaver()){
+        switch(gameState.getAntalForkerteBogstaver()){
             case 0:
                 imageSrc = R.drawable.galge; break;
             case 1:
@@ -93,12 +93,12 @@ public class Game extends Fragment implements View.OnClickListener {
         }
         ((ImageView)getView().findViewById(R.id.galge)).setImageResource(imageSrc);
 
-        if(logic.erSpilletSlut()){
+        if(gameState.erSpilletSlut()){
             // Go to Finished screen
             getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout )
-                .replace(R.id.frag1, new Finished(logic.erSpilletVundet(), logic.getOrdet(), logic.getAntalForkerteBogstaver()))
+                .replace(R.id.frag1, new Finished(gameState.erSpilletVundet(), gameState.getOrdet(), gameState.getAntalForkerteBogstaver()))
                 .addToBackStack(null)
                 .commit();
         }
@@ -123,6 +123,6 @@ public class Game extends Fragment implements View.OnClickListener {
     /* Updates the displayed word to match the current word in the game logic*/
     private void updateWord(){
         TextView txt = getView().findViewById(R.id.word);
-        txt.setText(GalgeLogik.getInstance().getSynligtOrd());
+        txt.setText(GameState.getState().getSynligtOrd());
     }
 }
