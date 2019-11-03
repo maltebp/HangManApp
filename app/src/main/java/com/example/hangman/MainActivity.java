@@ -18,14 +18,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Settings main page to intro fragment
-        if( savedInstanceState == null){
+        /*if( savedInstanceState == null){
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.frag1, new Intro())
                     .commit();
         }
 
-        findViewById(R.id.btn_settings).setOnClickListener(this);
+        findViewById(R.id.btn_settings).setOnClickListener(this);*/
+
+        if( savedInstanceState == null ){
+            getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.frag1, new Scoreboard())
+                .commit();
+        }
     }
 
 
