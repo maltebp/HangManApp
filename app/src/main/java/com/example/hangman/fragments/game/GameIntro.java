@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.game;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.hangman.R;
+import com.example.hangman.SoundManager;
+import com.example.hangman.gamelogic.GameState;
 
 import static java.lang.Thread.sleep;
 

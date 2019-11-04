@@ -1,53 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/settings_frag"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".Intro"
+    tools:context=".fragments.intro.Intro"
     android:background="@color/colorPrimary">
 
-    <TableRow
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:text="Sounds"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:layout_width="75dp"
-            />
+    <Switch
+        android:id="@+id/settings_sounds"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:theme="@style/MySwitch"
+        android:text="Sounds"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"
+        />
 
-        <Switch
-            android:id="@+id/settings_sounds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:theme="@style/MySwitch"
-            />
-    </TableRow>
-
-    <TableRow
-        android:layout_marginBottom="10dp">>
-        <TextView
-            android:text="Music"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:layout_width="75dp"
-            />
-
-        <Switch
-            android:id="@+id/settings_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:theme="@style/MySwitch"
-
-            />
-    </TableRow>
+    <Switch
+        android:id="@+id/settings_music"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:theme="@style/MySwitch"
+        android:text="Music"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        />
 
 
-</TableLayout>
+</LinearLayout>

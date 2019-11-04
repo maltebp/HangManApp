@@ -1,10 +1,15 @@
-package com.example.hangman;
+package com.example.hangman.fragments.intro;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
+
+import com.example.hangman.R;
+import com.example.hangman.fragments.Scoreboard;
+import com.example.hangman.SoundManager;
+import com.example.hangman.fragments.game.EnterName;
 
 
 /* The welcome screen when you open the app */
@@ -48,8 +53,8 @@ public class Intro extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        /* If not placed here, the view dimensions won't have loaded yet, and it won't work. */
-        textAnimator = new FloatingTextAnimator(getActivity(), getContext(), getView().findViewById(R.id.animation_container));
+        /* If not placed here, a new FloatingTextAnimator won't be created when closing and opening the app */
+        textAnimator = new FloatingTextAnimator(getContext(), getView().findViewById(R.id.animation_container));
     }
 
     @Override

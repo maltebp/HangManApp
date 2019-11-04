@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.game;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.hangman.R;
+import com.example.hangman.gamelogic.GameState;
 
 
 /**

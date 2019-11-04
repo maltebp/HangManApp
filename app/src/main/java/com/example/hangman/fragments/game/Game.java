@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.game;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +17,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.hangman.R;
+import com.example.hangman.SoundManager;
+import com.example.hangman.gamelogic.GameState;
+
 /* The actual game screen */
 public class Game extends Fragment implements View.OnClickListener {
 
@@ -26,13 +30,14 @@ public class Game extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.galge).setOnClickListener(this);
 
-        int buttonsPerRow = 6;
-
+        // Get screen size
         DisplayMetrics screenSize = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager()
                 .getDefaultDisplay()
                 .getMetrics(screenSize);
 
+        // Adjust button width according to screen size
+        int buttonsPerRow = 6;
         int buttonWidth = (screenSize.widthPixels-50)/buttonsPerRow;
 
         // Create the "keyboard"
@@ -45,8 +50,6 @@ public class Game extends Fragment implements View.OnClickListener {
             }
             row.addView(createLetterButton( (char) (97+i), buttonWidth));
         }
-
-
 
         // Adds danish letters to keyboard
         row.addView(createLetterButton( 'æ', buttonWidth ));

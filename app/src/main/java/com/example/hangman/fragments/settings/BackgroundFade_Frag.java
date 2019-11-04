@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.settings;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.hangman.R;
 
 /* A fade effect for the settings fragment */
 public class BackgroundFade_Frag extends Fragment{

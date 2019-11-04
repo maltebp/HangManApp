@@ -1,41 +1,62 @@
 package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.hangman.database.SettingsDAO;
 import com.example.hangman.database.SettingsData;
+import com.example.hangman.fragments.intro.Intro;
+import com.example.hangman.fragments.settings.BackgroundFade_Frag;
+import com.example.hangman.fragments.settings.Settings;
+import com.example.hangman.gamelogic.GameState;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+/**
+ * The only activity of the entire app, and everything starts from here.
+ * Contains the fragment containers (settings and screen).
+ */
+public class Main extends AppCompatActivity {
 
     private boolean settingsActive = false;
-    private Fragment menuFrag = new Settings();
-    private Fragment fadeFrag = new BackgroundFade_Frag();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Adding on click listener to settings button
+        findViewById(R.id.btn_settings).setOnClickListener( (View v) -> {
+            if (settingsActive){
+                onBackPressed();
+            }else{
+                settingsActive = true;
 
-        // Setting main page to intro fragment
-        if( savedInstanceState == null){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.frag1, new Intro())
-                    .commit();
-        }
+                // Open Settings window
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
+                        .add(R.id.frag2, new BackgroundFade_Frag())
+                        .addToBackStack(null)
+                        .commit();
 
+                // Show background fade (partly transparent screen).
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up)
+                        .add(R.id.frag2, new Settings())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
-        findViewById(R.id.btn_settings).setOnClickListener(this);
 
         // Load settings data from preferences into the SoundManager
         SettingsData settingsData = new SettingsDAO(getBaseContext()).loadSettings();
         SoundManager.getInstance().toggleMusic(settingsData.isMusicEnabled());
         SoundManager.getInstance().toggleSound(settingsData.isSoundEnabled());
+
 
         /* Load extra words from DR. It's not inteferring with any UI,
             so there is no problem in just running it on a regular thread. */
@@ -48,31 +69,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
 
-    }
 
-
-    @Override
-    public void onClick(View view) {
-        if (settingsActive){
-            onBackPressed();
-        }else{
-            settingsActive = true;
-            // Open SettingsData window
-            getSupportFragmentManager()
+        // Setting page to intro fragment
+        getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .add(R.id.frag2, fadeFrag)
-                .addToBackStack(null)
+                .add(R.id.frag1, new Intro())
                 .commit();
-
-            getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up)
-                .add(R.id.frag2, menuFrag)
-                .addToBackStack(null)
-                .commit();
-        }
-
     }
 
 

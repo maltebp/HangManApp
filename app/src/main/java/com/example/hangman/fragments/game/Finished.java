@@ -1,6 +1,5 @@
-package com.example.hangman;
+package com.example.hangman.fragments.game;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.hangman.R;
 import com.example.hangman.database.IScoreDAO;
 import com.example.hangman.database.Score;
 import com.example.hangman.database.ScoreDAO;
+import com.example.hangman.gamelogic.GameState;
 
 
 /* Displays the result of the game (win / loss) */

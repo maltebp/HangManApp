@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +9,11 @@ import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.hangman.R;
+import com.example.hangman.SoundManager;
 import com.example.hangman.database.SettingsDAO;
 import com.example.hangman.database.SettingsData;
+
 
 public class Settings extends Fragment{
 

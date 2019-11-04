@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments.intro;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.hangman.gamelogic.GameState;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -16,13 +18,18 @@ import java.util.Random;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+
+/**
+ *  Class to display and simulate floating text within
+ *  a given layout, by extending the AsyncTask.
+ *
+ *  It uses the words available from the game logic.
+ */
 public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
 
     private static final int NUM_TEXTS = 8;
-    private static final int FRAME_FREQ = 16; // Milliseconds
+    private static final int FRAME_FREQ = 16; // Milliseconds = ~60 FPS
 
-    private Context context;
-    private FrameLayout parent;
     private int height;
     private int width;
 
@@ -32,22 +39,17 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
 
     private LinkedList<FloatingText> texts = new LinkedList<>();
 
-    public FloatingTextAnimator(Activity activity, Context context, FrameLayout parent){
 
-        System.out.println("Creating ");
+    public FloatingTextAnimator(Context context, FrameLayout container){
 
-        parent.post(() -> {
-            this.context = context;
-            this.parent = parent;
+        // Post ensures that the dimensions have been calculating before we create the text objects.
+        container.post(() -> {
+            height = container.getHeight();
+            width = container.getWidth();
 
-            System.out.println("Setting height/width: "+parent.getHeight() + ", "+parent.getWidth());
-
-            ViewGroup.LayoutParams params = parent.getLayoutParams();
-            height = parent.getHeight();    
-            width = parent.getWidth();
-
+            // Create text objects
             for(int i=0; i<NUM_TEXTS; i++){
-                FloatingText text = new FloatingText(activity, context, parent);
+                FloatingText text = new FloatingText(context, container);
                 generateText(text);
                 texts.add(text);
             }
@@ -56,7 +58,7 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
         });
     }
 
-
+    /* Stops the simulation/rendering loop */
     public void stop(){
         run = false;
     }
@@ -64,8 +66,9 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-
+        // Do loop on seperate thread
         while(run){
+            // Publish to update views on main thread
             publishProgress();
             try{
                 Thread.sleep(FRAME_FREQ);
@@ -79,18 +82,22 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected void onProgressUpdate(Void ... values) {
+        // Update views on main thread
         for(FloatingText text : texts ){
             if( 0 > text.adjustDelay(FRAME_FREQ) ){
-                if( text.move() < 0 ){
+                text.update();
+                if( text.getPosY() < 0 ){
                     generateText(text);
                 }
             }
         }
     }
 
+
+    /* Randoly generates a new text, including x-coordinate, size, speed etc. */
     public void generateText(FloatingText text){
 
-        List<String> words = GameState.getState().muligeOrd;
+        List<String> words = GameState.getState().getPossibleWords();
 
         /* There is a slight chance that words are being loaded from DR in this instant,
             and therefor the list might be empty. In that case, just reuse the old world.*/
@@ -98,18 +105,18 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
             text.setText( words.get( rand.nextInt(words.size())) );
         }
 
+        // X position
         text.setPosition((rand.nextFloat()*(width+100))-200, height);
 
+        // Delay before it appears on the screen
         text.setDelay( rand.nextLong()%8000 );
 
-
         float speed = (rand.nextFloat()*4)+3;
-
         text.setSpeed( -speed );
 
+        /* Transparency speed: how fast it goes fades away */
         float transparency = 40;
         float transparencySpeed =  transparency / (height / speed);
-
         text.setTransparencySpeed( -transparencySpeed );
         text.setTransparency(transparency);
 
@@ -119,7 +126,13 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
     }
 
 
-
+    /**
+     * Represents a single floating text. To place the text using absolute
+     * coordinates, the following is done for each text:
+     *
+     *  - Place a FrameLayout within the parent view, matching its size
+     *
+     */
     private class FloatingText{
 
         private float speed;
@@ -127,45 +140,23 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
         private float y;
         private long delay;
 
-        private FrameLayout frame;
         private TextView textView;
-        private Activity activity;
         private float transparency = 40;
         private float transparencySpeed;
 
-        public FloatingText(Activity activity, Context context, FrameLayout parent){
-            this.activity = activity;
-
-            FrameLayout.LayoutParams params;
-
-            frame = new FrameLayout(context);
-            params = new FrameLayout.LayoutParams(MATCH_PARENT,MATCH_PARENT);
-            frame.setLayoutParams(params);
+        public FloatingText(Context context, FrameLayout container){
 
             textView = new TextView(context);
             textView.setTypeface(null, Typeface.BOLD);
             textView.setMaxLines(1);
-            params = new FrameLayout.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
 
-
-            textView.setLayoutParams(params);
-
-            frame.addView(textView);
-            parent.addView(frame);
+            container.addView(textView);
         }
 
         public void setPosition(float x, float y){
             this.x = x;
             this.y = y;
             update();
-        }
-
-        public float move(){
-            transparency += transparencySpeed;
-            if(transparency < 0) transparency = 0;
-            y += speed;
-            update();
-            return y;
         }
 
         public void setSpeed(float speed){
@@ -189,12 +180,21 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
             return delay;
         }
 
+
         private void update(){
+
+            // Position: Adjusting margin using params, to give the TextView absolute coordinates within its parent
+            y += speed;
 
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             params.leftMargin = (int) x;
             params.topMargin = (int) y;
-            frame.setLayoutParams(params);
+            textView.setLayoutParams(params);
+
+
+            // Transparency: decrement integer transparancy and convert it to a color
+            transparency += transparencySpeed;
+            if(transparency < 0) transparency = 0;
 
             String transparencyHex = Integer.toHexString( (int) transparency );
             if(transparencyHex.length() == 1) transparencyHex = "0"+transparencyHex;
@@ -207,6 +207,10 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
 
         public void setSize(float size){
             textView.setTextSize(size);
+        }
+
+        public float getPosY() {
+            return y;
         }
     }
 }

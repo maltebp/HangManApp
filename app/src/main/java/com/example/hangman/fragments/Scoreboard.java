@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.example.hangman.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.hangman.R;
 import com.example.hangman.database.IScoreDAO;
 import com.example.hangman.database.Score;
 import com.example.hangman.database.ScoreDAO;

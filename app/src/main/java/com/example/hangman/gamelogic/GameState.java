@@ -1,5 +1,7 @@
-package com.example.hangman;
+package com.example.hangman.gamelogic;
 
+
+import java.util.List;
 
 /**
  * Extension of GalgeLogik which allows me to extend or change
@@ -23,6 +25,10 @@ public class GameState extends GalgeLogik {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public List<String> getPossibleWords(){
+        return muligeOrd;
     }
 
     public void setPlayerName(String playerName) {
