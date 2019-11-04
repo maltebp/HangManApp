@@ -29,7 +29,7 @@ https://docs.google.com/document/d/1d0u0hvXTExwkC6N2B93xA4gS5wVxA3DIVd8bYe2efyk/
     H [x] Load words from internet
     H [x] Change app name
     H [x] Fix keyboard on smaller screens
-    L [ ] Add name check when enter name
+    L [x] Add name check when enter name
     L [ ] Show keyboard on enter name text focus
 
     Design

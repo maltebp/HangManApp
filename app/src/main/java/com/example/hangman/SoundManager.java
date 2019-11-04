@@ -88,14 +88,9 @@ public class SoundManager {
         return musicEnabled;
     }
 
+
     public boolean isSoundEnabled(){
         return soundEnabled;
-    }
-
-
-
-    public boolean musicIsPlaying(){
-        return music != null && music.isPlaying();
     }
 
 
@@ -124,11 +119,6 @@ public class SoundManager {
 
         public void pause(){
             mediaPlayer.pause();
-        }
-
-        public boolean isPlaying(){
-            if(mediaPlayer == null ) return false;
-            return mediaPlayer.isPlaying();
         }
 
         @Override

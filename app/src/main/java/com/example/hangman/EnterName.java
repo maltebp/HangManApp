@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 
-/* Starts the game, displaying the number of letters in the word to be guessed */
+/**
+ * Prompt the user for a name, and checks if the name is okay */
 public class EnterName extends Fragment {
 
 
@@ -22,11 +24,13 @@ public class EnterName extends Fragment {
 
         input_name.requestFocus();
 
+        // Set on enter action
         input_name.setOnKeyListener((View v, int keyCode, KeyEvent event) ->{
+            if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                // Enter pressed
 
-            if(event.getAction() == KeyEvent.ACTION_DOWN){
-                if(keyCode == KeyEvent.KEYCODE_ENTER){
-
+                if(validateName()){
+                    // Name okay.
                     GameState.getState().setPlayerName( ((EditText) v).getText().toString() );
 
                     getFragmentManager()
@@ -37,10 +41,40 @@ public class EnterName extends Fragment {
                             .commit();
                 }
             }
-
             return false;
         });
 
         return view;
+    }
+
+
+    /**
+     * Checks the name (string in R.id.input_name) for a series of conditions,
+     * and updates the result text (R.id.entername_text_result) accordingly.
+     * a
+     * @return True if the name was okay, false if not
+     */
+    private boolean validateName(){
+        TextView text_result = getView().findViewById(R.id.entername_text_result);
+        String name = ((TextView) getView().findViewById(R.id.input_name)).getText().toString();
+
+        // Check length
+        if(name.length() < 2){
+            text_result.setText("Name is too short");
+            return false;
+        }
+
+        // Check each character for ascii vaue
+        for(int i=0; i<name.length(); i++){
+            char c = name.charAt(i);
+
+            // Only large and small letters
+            if( c < 97 && c > 90 || c > 122 || c < 65 ){
+                text_result.setText( "Name contains wrong characters" );
+                return false;
+            }
+        }
+
+        return true;
     }
 }
