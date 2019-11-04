@@ -15,7 +15,6 @@ import java.util.LinkedList;
  */
 public class SoundManager {
 
-
     private static SoundManager instance = new SoundManager();
     private SoundManager(){}
 
@@ -71,7 +70,7 @@ public class SoundManager {
                 sound.stop();
             }
             sounds.clear();
-        };
+        }
     }
 
     public void toggleMusic(boolean toggle){
@@ -83,7 +82,20 @@ public class SoundManager {
                 music.start();
             }
         }
+    }
 
+    public boolean isMusicEnabled(){
+        return musicEnabled;
+    }
+
+    public boolean isSoundEnabled(){
+        return soundEnabled;
+    }
+
+
+
+    public boolean musicIsPlaying(){
+        return music != null && music.isPlaying();
     }
 
 
@@ -114,13 +126,17 @@ public class SoundManager {
             mediaPlayer.pause();
         }
 
+        public boolean isPlaying(){
+            if(mediaPlayer == null ) return false;
+            return mediaPlayer.isPlaying();
+        }
+
         @Override
         public void onCompletion(MediaPlayer mp) {
-            System.out.println("Complete");
             // Not sure if this if statement is necessary - didn't bother to test it
             if(!looping){
                 stop();
-                sounds.remove(this);
+                        sounds.remove(this);
             }
         }
     }

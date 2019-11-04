@@ -1,11 +1,13 @@
 package com.example.hangman;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +26,32 @@ public class Game extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.galge).setOnClickListener(this);
 
+        int buttonsPerRow = 6;
+
+        DisplayMetrics screenSize = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager()
+                .getDefaultDisplay()
+                .getMetrics(screenSize);
+
+        int buttonWidth = (screenSize.widthPixels-50)/buttonsPerRow;
+
         // Create the "keyboard"
         TableLayout table = view.findViewById(R.id.buttons);
         TableRow row = null;
         for(int i=0; i<26; i++){
-            if(i % 6 == 0){
+            if(i % buttonsPerRow == 0){
                 row = new TableRow(getContext());
                 table.addView(row);
             }
-            row.addView(createLetterButton( (char) (97+i) ));
+            row.addView(createLetterButton( (char) (97+i), buttonWidth));
         }
 
-        // ADds danish letters to keyboard
-        row.addView(createLetterButton( 'æ' ));
-        row.addView(createLetterButton( 'ø' ));
-        row.addView(createLetterButton( 'å' ));
+
+
+        // Adds danish letters to keyboard
+        row.addView(createLetterButton( 'æ', buttonWidth ));
+        row.addView(createLetterButton( 'ø', buttonWidth ));
+        row.addView(createLetterButton( 'å', buttonWidth ));
 
         return view;
     }
@@ -105,12 +118,13 @@ public class Game extends Fragment implements View.OnClickListener {
     }
 
     /* Generic method to create letter buttons (A-Å) */
-    private Button createLetterButton(char letter){
+    private Button createLetterButton(char letter, int width){
         Button btn = new Button(getContext());
 
         /* Since the button is a vector graphic, setting the background will make it look squared.
             Instead we change the tint. */
-        btn.setLayoutParams(new TableRow.LayoutParams( 160, TableRow.LayoutParams.WRAP_CONTENT));
+        btn.setLayoutParams(new TableRow.LayoutParams( width, TableRow.LayoutParams.WRAP_CONTENT));
+
 
         String str = "" + letter;
         btn.setText( str );

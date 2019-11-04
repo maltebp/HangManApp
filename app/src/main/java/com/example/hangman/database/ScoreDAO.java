@@ -3,8 +3,6 @@ package com.example.hangman.database;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.recyclerview.widget.SortedList;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +15,6 @@ public class ScoreDAO implements IScoreDAO {
 
     private final String filename = "highscores";
     private final Context context;
-
 
     public ScoreDAO(Context context){
         this.context = context;

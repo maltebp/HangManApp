@@ -35,7 +35,7 @@ public class Finished extends Fragment implements View.OnClickListener {
             TextView text_rank = view.findViewById(R.id.won_text_rank);
             text_rank.setText( "#"+scoreDAO.getRank(gameState.getPlayerName()));
 
-            // Settings mistakes
+            // SettingsData mistakes
             TextView text_mistakes = view.findViewById(R.id.text_mistakes);
             text_mistakes.setText("... with "+gameState.getAntalForkerteBogstaver()+" mistakes");
 

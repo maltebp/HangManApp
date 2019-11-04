@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -90,9 +89,14 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
     }
 
     public void generateText(FloatingText text){
+
         List<String> words = GameState.getState().muligeOrd;
 
-        text.setText( words.get( rand.nextInt(words.size())) );
+        /* There is a slight chance that words are being loaded from DR in this instant,
+            and therefor the list might be empty. In that case, just reuse the old world.*/
+        if(words.size() > 0 ){
+            text.setText( words.get( rand.nextInt(words.size())) );
+        }
 
         text.setPosition((rand.nextFloat()*(width+100))-200, height);
 
@@ -154,7 +158,6 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
             this.x = x;
             this.y = y;
             update();
-            System.out.println("Pos: "+this.x +", "+this.y);
         }
 
         public float move(){
@@ -192,8 +195,6 @@ public class FloatingTextAnimator extends AsyncTask<Void,Void,Void> {
             params.leftMargin = (int) x;
             params.topMargin = (int) y;
             frame.setLayoutParams(params);
-
-            System.out.println("Transparency: "+transparency);
 
             String transparencyHex = Integer.toHexString( (int) transparency );
             if(transparencyHex.length() == 1) transparencyHex = "0"+transparencyHex;

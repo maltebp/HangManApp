@@ -1,5 +1,10 @@
 package com.example.hangman;
 
+
+/**
+ * Extension of GalgeLogik which allows me to extend or change
+ * some of the functionality, to fit the needs of this program.
+ */
 public class GameState extends GalgeLogik {
 
     // Singleton Logic ========

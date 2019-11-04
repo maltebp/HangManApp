@@ -7,14 +7,14 @@ https://docs.google.com/document/d/1d0u0hvXTExwkC6N2B93xA4gS5wVxA3DIVd8bYe2efyk/
         [x] Adjust sound levels
         [x] Add music
         [x] Add music settings
-    H   [ ] Make music/sounds stop when minimizing game
+    H   [x] Make music/sounds stop when minimizing game
     L   [ ] Sound level adjustment (something with logarithmic scale)
 
     Settings
-    M   [ ] Save / load settings preferences
+    M   [x] Save / load settings preferences
     L   [ ] Custom color setting
     H   [x] Close settings tap if clicking outside
-    L   [ ] Sound level setting
+    L   [x] Sound level setting
 
     Highscore
     H   [x] Enter name
@@ -28,12 +28,12 @@ https://docs.google.com/document/d/1d0u0hvXTExwkC6N2B93xA4gS5wVxA3DIVd8bYe2efyk/
 
     H [x] Load words from internet
     H [x] Change app name
-    H [ ] Fix keyboard on smaller screens
+    H [x] Fix keyboard on smaller screens
     L [ ] Add name check when enter name
     L [ ] Show keyboard on enter name text focus
 
     Design
-    L   [ ] Floating text animation on home screen
-    L   [ ] Invert color on home screen
+    L   [x] Floating text animation on home screen
+    L   [x] Invert color on home screen
 
 
