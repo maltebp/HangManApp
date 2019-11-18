@@ -7,6 +7,7 @@ import androidx.annotation.RawRes;
 
 import java.util.LinkedList;
 
+
 /**
  * Singleton to keeps track of whether sound is enabled or not, and is used to play
  * a given sound effect.
@@ -54,11 +55,17 @@ public class SoundManager {
     }
 
 
+    /**
+     *  Clears the currently playing music, meaning no music will
+     *  be playing until some new music is set using the playMusic(),
+     *  even though you add
+     */
     public void clearMusic(){
         if(music != null)
             music.stop();
             music = null;
     }
+
 
     /**
      * Enable/disable the sound effects
@@ -73,6 +80,14 @@ public class SoundManager {
         }
     }
 
+
+    /**
+     * Toggles whether or not music should be playing. Music needs to
+     * be set before any music with be playing though using the
+     * {@link SoundManager#playMusic(Context, int, float)} first.
+     *
+     * @param toggle Whether or not music should be playing (true = play)
+     */
     public void toggleMusic(boolean toggle){
         musicEnabled = toggle;
         if(music != null){
@@ -94,6 +109,11 @@ public class SoundManager {
     }
 
 
+    /**
+     *  A class representing a sound effect playing, using the MediaPlayer
+     *  to play. The sound effect has to be started using the start() method
+     *  and stopped (released) manually using the the stop() method.
+     */
     public class SoundInstance implements MediaPlayer.OnCompletionListener {
 
         private MediaPlayer mediaPlayer;
