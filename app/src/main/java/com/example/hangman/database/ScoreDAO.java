@@ -26,7 +26,7 @@ public class ScoreDAO implements IScoreDAO {
 
         int currentScore = highscores.getInt(score.getName(), -1);
 
-        if(score.getScore() > currentScore){
+        if(score.getScore( ) > currentScore){
             highscores.edit()
                 .putInt(score.getName(), score.getScore())
                 .commit();

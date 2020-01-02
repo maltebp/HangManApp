@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Extension of GalgeLogik which allows me to extend or change
  * some of the functionality, to fit the needs of this program.
+ * This is implemented as a Singleton.
  */
 public class GameState extends GalgeLogik {
 

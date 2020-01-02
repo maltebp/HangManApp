@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.hangman.R;
+import com.example.hangman.SoundManager;
 import com.example.hangman.database.IScoreDAO;
 import com.example.hangman.database.Score;
 import com.example.hangman.database.ScoreDAO;
@@ -39,11 +40,13 @@ public class Finished extends Fragment implements View.OnClickListener {
             // SettingsData mistakes
             TextView text_mistakes = view.findViewById(R.id.text_mistakes);
             text_mistakes.setText("... with "+gameState.getAntalForkerteBogstaver()+" mistakes");
+            SoundManager.getInstance().playSound(this.getContext(), R.raw.snd_victory);
 
         }else {
             view = inflater.inflate(R.layout.fragment_lost, container, false);
             // Update the 'correct word'-text with the correct word
             ((TextView) view.findViewById(R.id.correctword)).setText(gameState.getOrdet());
+            SoundManager.getInstance().playSound(this.getContext(), R.raw.snd_lost);
         }
 
         view.setOnClickListener(this);
