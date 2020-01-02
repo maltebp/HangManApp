@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
 import android.view.View
+import com.example.hangman.database.ScoreDAO
 
 import com.example.hangman.database.SettingsDAO
 import com.example.hangman.fragments.intro.Intro
@@ -56,8 +57,8 @@ class Main : AppCompatActivity() {
         SoundManager.getInstance().toggleSound(settingsData.isSoundEnabled)
 
 
-        /* Load extra words from DR. It's not inteferring with any UI,
-            so there is no problem in just running it on a regular thread. */
+       /* *//* Load extra words from DR. It's not inteferring with any UI,
+            so there is no problem in just running it on a regular thread. *//*
         Thread {
             try {
                 GameState.getState().hentOrdFraDr()
@@ -65,7 +66,7 @@ class Main : AppCompatActivity() {
                 println("Der skete en fejl, da vi hentede ord fra DR: ")
                 e.printStackTrace()
             }
-        }.start()
+        }.start()*/
 
 
         // Setting page to intro fragment

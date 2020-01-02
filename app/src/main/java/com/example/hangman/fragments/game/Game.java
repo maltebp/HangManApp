@@ -1,6 +1,7 @@
 package com.example.hangman.fragments.game;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.example.hangman.R;
 import com.example.hangman.SoundManager;
 import com.example.hangman.gamelogic.GameState;
+
 
 /* The actual game screen */
 public class Game extends Fragment implements View.OnClickListener {
@@ -61,8 +63,11 @@ public class Game extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onStart(){
+        super.onStart();
         updateWord();
+        // Starting game timer
+        GameState.getState().startTimer(getView().findViewById(R.id.timer));
     }
 
 
@@ -75,11 +80,9 @@ public class Game extends Fragment implements View.OnClickListener {
 
         GameState gameState = GameState.getState();
 
-        // Make the guess
-        gameState.gætBogstav(btn.getText().toString());
 
-        // Update button according to result of guess
-        if(gameState.erSidsteBogstavKorrekt()){
+        // Make a guess and update button according to result of guess
+        if(gameState.guessLetter(btn.getText().toString())){
             btn.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.col_button_correct));
             SoundManager.getInstance().playSound(getContext(), R.raw.snd_correct,0.9f);
         }else{
@@ -110,6 +113,7 @@ public class Game extends Fragment implements View.OnClickListener {
         ((ImageView)getView().findViewById(R.id.galge)).setImageResource(imageSrc);
 
         if(gameState.erSpilletSlut()){
+
             // Go to Finished screen
             getFragmentManager()
                 .beginTransaction()
@@ -141,5 +145,11 @@ public class Game extends Fragment implements View.OnClickListener {
     private void updateWord(){
         TextView txt = getView().findViewById(R.id.word);
         txt.setText(GameState.getState().getSynligtOrd());
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        GameState.getState().stopGame();
     }
 }

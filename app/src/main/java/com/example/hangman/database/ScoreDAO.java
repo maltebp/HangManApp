@@ -3,7 +3,11 @@ package com.example.hangman.database;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,17 +26,52 @@ public class ScoreDAO implements IScoreDAO {
 
     @Override
     public void addScore(Score score){
-        SharedPreferences highscores = context.getSharedPreferences(filename, MODE_PRIVATE);
+        Score currentScore = getScore(score.getName());
 
-        int currentScore = highscores.getInt(score.getName(), -1);
+        if( currentScore == null || currentScore.getScore() < score.getScore() ){
+            try{
+                JSONObject json = new JSONObject();
+                json.put("name", score.getName());
+                json.put("score", score.getScore());
+                json.put("word", score.getWord());
+                json.put("mistakes", score.getMistakes());
+                json.put("time", score.getTime());
+                json.put("date", score.getDate().getTime());
 
-        if(score.getScore( ) > currentScore){
-            highscores.edit()
-                .putInt(score.getName(), score.getScore())
-                .commit();
+                SharedPreferences highscores = context.getSharedPreferences(filename, MODE_PRIVATE);
+                highscores.edit()
+                        .putString(score.getName(), json.toString() )
+                        .commit();
+                /* Using commit rather than apply as its plausible that I'll
+                need to fetch the newly updated scores immediatley after exiting this function */
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
         }
-        /* Using commit as its plausible that I'll
-            need to fetch the newly updated scores immediatley */
+    }
+
+
+    /** Loads a single player's score */
+    @Override
+    public Score getScore(String name){
+        SharedPreferences scores = context.getSharedPreferences(filename, MODE_PRIVATE);
+        String scoreObj = scores.getString(name, "");
+        if( scoreObj.equals("") ){
+            return null;
+        }
+        try{
+            JSONObject json = new JSONObject(scoreObj);
+            return new Score(
+                    json.getString("name"),
+                    json.getInt("score"),
+                    json.getString("word"),
+                    json.getInt("mistakes"),
+                    json.getInt("time"),
+                    new Date(json.getLong("date")));
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -43,8 +82,11 @@ public class ScoreDAO implements IScoreDAO {
 
         LinkedList<Score> scores = new LinkedList<>();
 
-        for( Map.Entry<String, ?> entry : entries.entrySet() ){
-            scores.add( new Score(entry.getKey(), Integer.parseInt(entry.getValue().toString())  ) );
+        for( String name : entries.keySet() ) {
+            Score score = getScore(name);
+            if(score != null){
+                scores.add(score);
+            }
         }
 
         // Sort in ascending order using comparable interface (implemented by Scores)

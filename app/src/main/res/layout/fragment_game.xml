@@ -10,32 +10,45 @@
     tools:context=".fragments.game.Game"
     android:background="#FFFFFF">
 
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="TIMER"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/galge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:src="@drawable/galge"
+        app:layout_constraintTop_toBottomOf="@id/timer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
     <TextView
         android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="PLACEHOL"
         android:textColor="@color/colorSecondary"
-        android:textSize="50sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/galge" />
-
-    <ImageView
-        android:id="@+id/galge"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/galge"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.120000005" />
 
     <TableLayout
         android:id="@+id/buttons"

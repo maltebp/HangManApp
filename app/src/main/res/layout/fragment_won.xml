@@ -25,23 +25,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
-        android:id="@+id/text_mistakes"
+        android:id="@+id/text_summary"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="... with X mistakes"
-        android:textSize="30sp"
+        android:layout_width="250dp"
+        android:text="SUMMARY TEXT"
+        android:textAlignment="center"
+        android:textSize="25sp"
         android:textColor="@color/colorSecondary"
         app:layout_constraintTop_toBottomOf="@id/result_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <TextView
+        android:id="@+id/text_score"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="PLACEHOLDER"
+        android:textSize="40sp"
+        android:textColor="@color/colorSecondary"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/text_summary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
 
     <TextView
-        android:id="@+id/won_text_rank"
+        android:id="@+id/text_ranktext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:text="You are rank"
+
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_score"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/text_rank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -54,22 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correctword_text" />
+        app:layout_constraintTop_toBottomOf="@+id/text_ranktext" />
 
-    <TextView
-        android:id="@+id/correctword_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-
-        android:text="You are rank"
-
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result_text"
-        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/taptoplayagain"
@@ -83,8 +100,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.80" />
+        app:layout_constraintTop_toBottomOf="@id/text_rank"
+        app:layout_constraintVertical_bias="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
