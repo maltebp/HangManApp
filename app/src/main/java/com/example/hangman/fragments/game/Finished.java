@@ -14,11 +14,13 @@ import com.example.hangman.database.IScoreDAO;
 import com.example.hangman.database.Score;
 import com.example.hangman.database.ScoreDAO;
 import com.example.hangman.gamelogic.GameState;
+import com.github.jinatonic.confetti.CommonConfetti;
+import com.github.jinatonic.confetti.ConfettiManager;
+import com.github.jinatonic.confetti.ConfettiSource;
 
 
 /* Displays the result of the game (win / loss) */
 public class Finished extends Fragment implements View.OnClickListener {
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -41,6 +43,7 @@ public class Finished extends Fragment implements View.OnClickListener {
             TextView text_mistakes = view.findViewById(R.id.text_mistakes);
             text_mistakes.setText("... with "+gameState.getAntalForkerteBogstaver()+" mistakes");
             SoundManager.getInstance().playSound(this.getContext(), R.raw.snd_victory);
+            CommonConfetti.rainingConfetti(container, new int[] {R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorGrey} ).oneShot();
 
         }else {
             view = inflater.inflate(R.layout.fragment_lost, container, false);
